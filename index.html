@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Community OC - El Olimpo Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --zeus-gold: #FFD700;
+            --zeus-gold-dim: #b39700;
+            --zeus-blue: #00BFFF;
+            --zeus-lightning: #E0FFFF;
+            --dark-bg: #0a0a12;
+            --card-bg: #151520;
+            --text-main: #ffffff;
+            --text-sec: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .rays-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(10,10,18,1) 100%),
+                repeating-linear-gradient(100deg, transparent 0%, transparent 40%, rgba(0, 191, 255, 0.05) 40%, rgba(0, 191, 255, 0.05) 42%);
+            z-index: -1;
+        }
+
+        header {
+            background: rgba(21, 21, 32, 0.95);
+            border-bottom: 2px solid var(--zeus-gold);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--zeus-gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--zeus-blue);
+        }
+
+        .logo i {
+            color: var(--zeus-blue);
+            margin-right: 10px;
+            animation: flash 3s infinite alternate;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--zeus-blue);
+            text-shadow: 0 0 8px var(--zeus-blue);
+        }
+
+        .search-bar {
+            background: #222;
+            border: 1px solid var(--zeus-gold);
+            padding: 8px 15px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a12 100%);
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero span {
+            color: var(--zeus-blue);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--zeus-gold), var(--zeus-gold-dim));
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--zeus-gold);
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            border-left: 5px solid var(--zeus-blue);
+            padding-left: 15px;
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+        }
+
+        .filters {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--text-sec);
+            color: var(--text-sec);
+            padding: 5px 15px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            border-color: var(--zeus-blue);
+            color: var(--zeus-blue);
+            background: rgba(0, 191, 255, 0.1);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+        }
+
+        .cover-vertical {
+            height: 280px;
+            background-color: #333;
+        }
+        
+        .cover-vertical img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-author {
+            font-size: 0.85rem;
+            color: var(--text-sec);
+        }
+
+        .tags {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+            font-size: 0.7rem;
+        }
+
+        .tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--zeus-gold);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        footer {
+            background: #050508;
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            color: var(--text-sec);
+        }
+
+        @keyframes flash {
+            0% { opacity: 1; text-shadow: 0 0 10px var(--zeus-blue); }
+            50% { opacity: 0.5; text-shadow: none; }
+            100% { opacity: 1; text-shadow: 0 0 20px var(--zeus-blue); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            header { flex-direction: column; gap: 15px; }
+            .content-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="rays-bg"></div>
+
+    <header>
+        <div class="logo">
+            <i class="fas fa-bolt"></i> My Community OC
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Cómics</a></li>
+                <li><a href="#">Historias</a></li>
+                <li><a href="#">Comunidad OC</a></li>
+            </ul>
+        </nav>
+        <input type="text" class="search-bar" placeholder="Buscar Dioses, Héroes...">
+    </header>
+
+    <section class="hero">
+        <h1>Forge tu <span>Leyenda</span> en el Olimpo</h1>
+        <p>La comunidad definitiva para mostrar a tus Personajes Originales (OC).</p>
+        <br>
+        <button class="cta-button">Comenzar a Crear</button>
+    </section>
+
+    <div class="container">
+        
+        <h2 class="section-title">Rayos Trending <i class="fas fa-fire" style="color: var(--zeus-gold)"></i></h2>
+        
+        <div class="filters">
+            <button class="filter-btn active">Todo</button>
+            <button class="filter-btn">Fantasia</button>
+            <button class="filter-btn">Slice of Life</button>
+            <button class="filter-btn">Mitologia</button>
+        </div>
+
+        <div class="content-grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/000000/00BFFF?text=El+Hijo+de+Zeus" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">El Hijo de Zeus</div>
+                    <div class="card-author">@ArtistaRayos</div>
+                    <div class="tags">
+                        <span class="tag">Acción</span>
+                        <span class="tag">Mitología</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/191970/FFD700?text=Olivia+Goddess" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Olivia Goddess</div>
+                    <div class="card-author">@GirlPower</div>
+                    <div class="tags">
+                        <span class="tag">Drama</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/4B0082/FFFFFF?text=Caos+Divino" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Caos Divino</div>
+                    <div class="card-author">@DarkArtist</div>
+                    <div class="tags">
+                        <span class="tag">terror</span>
+                        <span class="tag">Mitología</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/8B0000/FFD700?text=Guerreros+del+Olimpo" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Guerreros del Olimpo</div>
+                    <div class="card-author">@EpicDraws</div>
+                    <div class="tags">
+                        <span class="tag">Acción</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/006400/FFD700?text=El+Ultimo+Heredero" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">El Ultimo Heredero</div>
+                    <div class="card-author">@MysticArt</div>
+                    <div class="tags">
+                        <span class="tag">Aventura</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="card">
+                <div class="cover-vertical">
+                    <img src="https://via.placeholder.com/300x600/4B0082/00BFFF?text=Relampagos+Azules" alt="Comic">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Relampagos Azules</div>
+                    <div class="card-author">@BlueThunder</div>
+                    <div class="tags">
+                        <span class="tag">Romance</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sección Historias (Estilo Wattpad) -->
+        <h2 class="section-title">Relatos de los Dioses <i class="fas fa-book-open" style="color: var(--zeus-gold)"></i></h2>
+        
+        <div class="content-grid">
+            <!-- Card Historia 1 -->
+            <div class="card">
+                <div class="cover-vertical" style="height: 200px;">
+                    <img src="https://via.placeholder.com/300x400/000033/FFFFFF?text=Amor+en+el+Olimpo" alt="Historia">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Amor en el Olimpo</div>
+                    <div class="card-author">@EscritorAmor</div>
+                    <div class="tags">
+                        <span class="tag">Romance</span>
+                        <span class="tag">12.5k Lecturas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Historia 2 -->
+            <div class="card">
+                <div class="cover-vertical" style="height: 200px;">
+                    <img src="https://via.placeholder.com/300x400/330000/FFD700?text=Traicion+Divina" alt="Historia">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Traición Divina</div>
+                    <div class="card-author">@DramaQueen</div>
+                    <div class="tags">
+                        <span class="tag">Drama</span>
+                        <span class="tag">8k Lecturas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Historia 3 -->
+            <div class="card">
+                <div class="cover-vertical" style="height: 200px;">
+                    <img src="https://via.placeholder.com/300x400/001a1a/00BFFF?text=El+秘书+de+Zeus" alt="Historia">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">El Secreto de Zeus</div>
+                    <div class="card-author">@MisteryWriter</div>
+                    <div class="tags">
+                        <span class="tag">Misterio</span>
+                        <span class="tag">15k Lecturas</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Historia 4 -->
+            <div class="card">
+                <div class="cover-vertical" style="height: 200px;">
+                    <img src="https://via.placeholder.com/300x400/1a1a00/FFFF00?text=Legado+de+Rayos" alt="Historia">
+                </div>
+                <div class="card-info">
+                    <div class="card-title">Legado de Rayos</div>
+                    <div class="card-author">@HerenciaOC</div>
+                    <div class="tags">
+                        <span class="tag">Fantasia</span>
+                        <span class="tag">22k Lecturas</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2024 My Community OC. Todos los derechos reservados.</p>
+        <p>Creado con el poder del rayo de Zeus ⚡</p>
+    </footer>
+
+</body>
+</html>
